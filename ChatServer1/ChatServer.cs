@@ -21,6 +21,7 @@ namespace ChatServer1
         public event Action<string, string> OnMessageReceived;
         public event Action<string> OnError;
 
+        //ALO MAKSIM
         public void Start(int port)
         {
             if (_isRunning) return;
