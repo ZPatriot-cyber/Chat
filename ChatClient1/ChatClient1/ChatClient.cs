@@ -60,3 +60,27 @@ namespace ChatClient1
                 Disconnect();
             }
         }
+        public void SendMessage(string text)
+        {
+            if (!_isConnected) return;
+            try
+            {
+                _writer.WriteLine(text);
+            }
+            catch
+            {
+                Disconnect();
+            }
+        }
+
+        public void Disconnect()
+        {
+            if (!_isConnected) return;
+            _isConnected = false;
+            _writer?.Close();
+            _reader?.Close();
+            _tcpClient?.Close();
+            OnDisconnected?.Invoke();
+        }
+    }
+}
