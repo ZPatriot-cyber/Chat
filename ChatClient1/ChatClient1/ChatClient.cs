@@ -43,3 +43,20 @@ namespace ChatClient1
                 OnError?.Invoke($"Не удалось подключиться: {ex.Message}");
             }
         }
+        private void ReadLoop()
+        {
+            try
+            {
+                string line;
+                while (_isConnected && (line = _reader.ReadLine()) != null)
+                {
+                    OnMessageReceived?.Invoke(line);
+                }
+            }
+            catch (IOException) { }
+            catch (Exception) { }
+            finally
+            {
+                Disconnect();
+            }
+        }
